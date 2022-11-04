@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Password Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" id="searchTxt" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="col-12 col-md-6 mx-auto ">
+      <h3 class="mb-3">Random Password Generator App</h3>
+      <div class="advanced-settings mt-5">
+        <h4 class="text-center">Choose your password type</h4>
+        <div class="selectView my-4">
+          <div class="btn-group btn-group-lg mx-auto d-flex justify-center" role="group"
+            aria-label="Basic radio toggle button group">
+            <input type="radio" onChange="radioChecked()" class="btn-check" name="passwordTypeToggle" id="autoBuild"
+              autocomplete="off" checked />
+            <label class="btn btn-outline-success" for="autoBuild"><span class="mdi mdi-fingerprint"></span> System Auto
+              Generator</label>
+            <input type="radio" onChange="radioChecked()" class="btn-check" name="passwordTypeToggle" id="customBuild"
+              autocomplete="off" >
+            <label class="btn btn-outline-primary" for="customBuild"><span class="mdi mdi-filter-settings"></span>Custom
+              Settings</label>
+          </div>
+        </div>
+
+        <div class="systemAutoPass">
+          <div class="btn-group btn-group-lg mt-3 mx-auto d-flex justify-center" role="group"
+            aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check passwordRadio" name="passwordType" id="weekPass" autocomplete="off">
+            <label class="btn btn-outline-danger" for="weekPass">Week</label>
+
+            <input type="radio" class="btn-check passwordRadio" name="passwordType" id="strongPass" autocomplete="off">
+            <label class="btn btn-outline-info" for="strongPass">Strong</label>
+
+            <input type="radio" class="btn-check passwordRadio" name="passwordType" id="superStrongPass"
+              autocomplete="off">
+            <label class="btn btn-outline-success" for="superStrongPass">Super Strong</label>
+
+            <input type="radio" class="btn-check passwordRadio" name="passwordType" id="funnyPass" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="funnyPass">Funny</label>
+          </div>
+          <div class="input-group mb-3 mt-5">
+            <div class="custom-tooltip" id="custom-tooltip">
+              Copied!
+            </div>
+            <input class="form-control form-control-lg" value="" id="passInput" min="6" max="25" type="text">
+            <button class="btn btn-success btn-lg" onclick="copy()" id="basic-addon2"><i
+                class="mdi mdi-clipboard"></i></button>
+          </div>
+          <div class="invalid-feedback" id="error">
+            Please Choose type of password, options and click Generate Button
+          </div>
+          <button type="button" id="generatePassBtn" class="btn btn-success">Generate</button>
+        </div>
+        <div class="customBuildPass">
+          <div class="mb-3 row">
+            <p class="invalid-feedback" id="error-new"></p>
+          </div>
+          <div class="mb-3 row">
+            <label for="passLength" class="col-sm-9 col-form-label">Password Length</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="passLength" value="">
+            </div>
+          </div>
+          <div class="form-check form-check-reverse">
+            <label class="form-check-label" for="lowerLetters">
+              Contains Lowercase characters
+            </label>
+            <input class="form-check-input" name="lowerLetters" type="checkbox" value="" id="lowerLetters">
+          </div>
+          <div class="form-check form-check-reverse">
+            <label class="form-check-label" for="upperLetters">
+              Contains Uppercase characters
+            </label>
+            <input class="form-check-input" name="upperLetters" type="checkbox" value="" id="upperLetters">
+          </div>
+          <div class="form-check form-check-reverse">
+            <label class="form-check-label" for="numbersLetters">
+              Contains Numbers
+            </label>
+            <input class="form-check-input" name="numbersLetters" type="checkbox" value="" id="numbersLetters">
+          </div>
+          <div class="form-check form-check-reverse">
+            <label class="form-check-label" for="symbolsLetters">
+              Contains Symbols
+            </label>
+            <input class="form-check-input" name="symbolsLetters" type="checkbox" value="" id="symbolsLetters">
+          </div>
+
+          <div class="input-group mb-3 mt-5">
+            <div class="custom-tooltip" id="custom-tooltip2">
+              Copied!
+            </div>
+            <input class="form-control form-control-lg" value="" id="passInputNew" min="6" max="25" type="text">
+            <button class="btn btn-success btn-lg" onclick="copy2()" id="basic-addon2"><i
+              class="mdi mdi-clipboard"></i></button>
+            </div>
+            <div class="invalid-feedback" id="error2">
+              Please Choose type of password, options and click Generate Button
+            </div>
+            <button type="button" id="generatePassBtn2" class="btn btn-success">Generate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+  <!-- <script src="93_Exercise7_Solution.js"></script> -->
+
+
+</body>
+
+</html>
